@@ -1,0 +1,250 @@
+/*
+Name: Alvin Shon
+CWL: 
+SN: 
+*/
+
+//positions of the switch
+#define OFF LOW
+#define ON HIGH
+
+//defining constants
+#define pushbutton 5
+#define pot A1
+
+//symbolic constants for INPUT/OUTPUT pins
+unsigned const int A = 13;
+unsigned const int B = 12;
+unsigned const int C = 11;
+unsigned const int D = 10;
+unsigned const int E = 9;
+unsigned const int F = 8;
+unsigned const int G = 7;
+unsigned const int H = 6;
+
+//display '0'
+void zero(void) {
+  digitalWrite(A, OFF);
+  digitalWrite(B, ON);
+  digitalWrite(C, ON);
+  digitalWrite(D, ON);
+  digitalWrite(E, ON);
+  digitalWrite(F, ON);
+  digitalWrite(G, ON);
+  digitalWrite(H, OFF);
+}
+
+//display '1'
+void one(void) {
+  digitalWrite(A, OFF);
+  digitalWrite(B, OFF);
+  digitalWrite(C, OFF);
+  digitalWrite(D, ON);
+  digitalWrite(E, OFF);
+  digitalWrite(F, OFF);
+  digitalWrite(G, ON);
+  digitalWrite(H, OFF);
+}
+
+//display '2'
+void two(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, LOW);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, LOW);
+  digitalWrite(H, LOW);
+}
+
+//display '3'
+void three(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, LOW);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, LOW);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//display '4'
+void four(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, LOW);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, LOW);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//display '5'
+void five(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, LOW);
+  digitalWrite(E, LOW);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//display '6'
+void six(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, LOW);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//display '7'
+void seven(void) {
+  digitalWrite(A, LOW);
+  digitalWrite(B, LOW);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, LOW);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//display '8'
+void eight(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, HIGH);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//display '9'
+void nine(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, LOW);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//display 'H'
+void h(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, LOW);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//turn off display
+void off(void) {
+  digitalWrite(A, LOW);
+  digitalWrite(B, LOW);
+  digitalWrite(C, LOW);
+  digitalWrite(D, LOW);
+  digitalWrite(E, LOW);
+  digitalWrite(F, LOW);
+  digitalWrite(G, LOW);
+  digitalWrite(H, LOW);
+}
+
+//display 'A'
+void a(void) {
+  digitalWrite(A, HIGH);
+  digitalWrite(B, HIGH);
+  digitalWrite(C, HIGH);
+  digitalWrite(D, HIGH);
+  digitalWrite(E, HIGH);
+  digitalWrite(F, LOW);
+  digitalWrite(G, HIGH);
+  digitalWrite(H, LOW);
+}
+
+//Note: potentiometer returns values from 0 to 1023 as angle increases
+void display() {
+  if (analogRead(A1) == 0)
+    zero();
+
+  if (analogRead(A1) > 0 && analogRead(A1) <= 102.3)
+    one();
+
+  if (analogRead(A1) > 102.3 && analogRead(A1) <= 102.3 * 2)
+    two();
+
+  if (analogRead(A1) > 102.3 * 2 && analogRead(A1) <= 102.3 * 3)
+    three();
+
+  if (analogRead(A1) > 102.3 * 3 && analogRead(A1) <= 102.3 * 4)
+    four();
+
+  if (analogRead(A1) > 102.3 * 4 && analogRead(A1) <= 102.3 * 5)
+    five();
+
+  if (analogRead(A1) > 102.3 * 5 && analogRead(A1) <= 102.3 * 6)
+    six();
+
+  if (analogRead(A1) > 102.3 * 6 && analogRead(A1) <= 102.3 * 7)
+    seven();
+
+  if (analogRead(A1) > 102.3 * 7 && analogRead(A1) <= 102.3 * 8)
+    eight();
+
+  if (analogRead(A1) > 102.3 * 8 && analogRead(A1) <= 102.3 * 9)
+    nine();
+
+  if (analogRead(A1) > 102.3 * 9 && analogRead(A1) <= 102.3 * 10)
+    h();
+}
+
+//initialization
+void setup(void) {
+  pinMode(A, OUTPUT);
+  pinMode(B, OUTPUT);
+  pinMode(C, OUTPUT);
+  pinMode(D, OUTPUT);
+  pinMode(E, OUTPUT);
+  pinMode(F, OUTPUT);
+  pinMode(G, OUTPUT);
+  pinMode(H, OUTPUT);
+
+  pinMode(pushbutton, INPUT);
+}
+
+// Start 
+void loop(void) {
+  while (digitalRead(pushbutton) == ON) {
+    off();
+    if (digitalRead(pushbutton) == OFF) {
+      //generating a new seed everytime executed using 'millis()'
+      randomSeed(millis());
+      for (int i = 0; i < random(1, 5); i++) {
+        a();
+        delay(500);
+        off();
+        delay(500);
+      }
+      //return back to reading angles
+      break;
+    }
+  }
+  
+  display();
+}
